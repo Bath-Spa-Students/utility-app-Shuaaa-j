@@ -6,39 +6,39 @@ class VendingMachine:
     def __init__(self):
         # Define menu items with codes, names, prices, categories, and stock
         self.menu = {
-            'A1': {'name': 'Coke', 'price': 1.50, 'category': 'Drinks', 'stock': 5},
-            'A2': {'name': 'Water', 'price': 1.00, 'category': 'Drinks', 'stock': 8},
-            'B1': {'name': 'Cheetos', 'price': 1.75, 'category': 'Chips', 'stock': 3},
-            'B2': {'name': 'Doritos', 'price': 2.00, 'category': 'Chips', 'stock': 4},
-            'C1': {'name': 'Kinder', 'price': 1.50, 'category': 'Sweets', 'stock': 5},
+            'A1': {'name': ' Coke', 'price': 1.50, 'category': 'Drinks', 'stock': 5},
+            'A2': {'name': ' Water', 'price': 1.00, 'category': 'Drinks', 'stock': 8},
+            'B1': {'name': ' Cheetos', 'price': 1.75, 'category': 'Chips', 'stock': 3},
+            'B2': {'name': ' Doritos', 'price': 2.00, 'category': 'Chips', 'stock': 4},
+            'C1': {'name': ' Kinder', 'price': 1.50, 'category': 'Sweets', 'stock': 5},
             'C2': {'name': 'Snicker', 'price': 1.00, 'category': 'Sweets', 'stock': 8},
         }
 
         self.balance = 0  # Initialize user balance
-
+        self.purchased_items = []  # To store purchased items for receipt
 
     def display_menu(self):
         print(""" 
 ██╗░░░██╗███████╗███╗░░██╗██████╗░██╗███╗░░██╗░██████╗░  ███╗░░░███╗░█████╗░░█████╗░██╗░░██╗██╗███╗░░██╗███████╗
 ██║░░░██║██╔════╝████╗░██║██╔══██╗██║████╗░██║██╔════╝░  ████╗░████║██╔══██╗██╔══██╗██║░░██║██║████╗░██║██╔════╝
-╚██╗░██╔╝█████╗░░██╔██╗██║██║░░██║██║██╔██╗██║██║░░██╗░  ██╔████╔██║███████║██║░░╚═╝███████║██║██╔██╗██║█████╗░░
+╚██╗░██╔╝█████╗░░██╔██╗██║██║░░██║██║██╔██╗██║██║░░██╗░  ██╔████╔██║███████║██║░░╚═╝███████║██║██╔██╗██║█████╗░░    
 ░╚████╔╝░██╔══╝░░██║╚████║██║░░██║██║██║╚████║██║░░╚██╗  ██║╚██╔╝██║██╔══██║██║░░██╗██╔══██║██║██║╚████║██╔══╝░░
 ░░╚██╔╝░░███████╗██║░╚███║██████╔╝██║██║░╚███║╚██████╔╝  ██║░╚═╝░██║██║░░██║╚█████╔╝██║░░██║██║██║░╚███║███████╗
-░░░╚═╝░░░╚══════╝╚═╝░░╚══╝╚═════╝░╚═╝╚═╝░░╚══╝░╚═════╝░  ╚═╝░░░░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝╚══════╝ """)  
-        print(" ________________________ ") 
-        print("|  ____________________  |")
-        print("| | []  []  []  []  [] | |")
-        print("| |--------------------| |")
-        print("| | []  []  []  []  [] | |")
-        print("| |--------------------| |")
-        print("| |____________________| |")
-        print("| |  ________________  | |")
-        print("| | | COLLECT        | | |")
-        print("| | |           HERE | | |")
-        print("| |  ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅   | |")
-        print("|  ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅   |")
-        print("|̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ |")
-        print("|_|̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ |_|")
+░░░╚═╝░░░╚══════╝╚═╝░░╚══╝╚═════╝░╚═╝╚═╝░░╚══╝░╚═════╝░  ╚═╝░░░░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝╚══════╝ 
+         ________________________  
+        |  ____________________  |
+        | | []  []  []  []  [] | |
+        | |--------------------| |
+        | | []  []  []  []  [] | |
+        | |--------------------| |
+        | |____________________| |
+        | |  ________________  | |
+        | | | COLLECT        | | |
+        | | |           HERE | | |
+        | |  ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅   | |
+        |  ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅   |
+        |̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ |
+        |_|̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ ̅ |_|""")
         table = PrettyTable()
         table.field_names = ["Code", "Item", "Price", "Category", "Stock"]
         for code, item in self.menu.items():
@@ -69,6 +69,7 @@ class VendingMachine:
                 self.suggest_purchase(item['category'])
                 self.display_change()
                 self.buy_additional_item()
+                self.purchased_items.append({'item_name': item['name'], 'item_price': item['price']})
             elif item['stock'] == 0:
                 print("Sorry, this item is out of stock.")
             else:
@@ -88,7 +89,8 @@ class VendingMachine:
     def suggest_purchase(self, category):
         suggestions = {
             'Drinks': 'How about adding some snacks like Chips?',
-            'Snacks': 'Would you like to try a refreshing drink like Water?'
+            'Snacks': 'Would you like to try a refreshing drink like Water?',
+            'Sweets': 'Would you like Water?'
         }
         if category in suggestions:
             print(suggestions[category])
@@ -107,6 +109,22 @@ class VendingMachine:
         self.balance += money_inserted
         self.select_item()
 
+    def create_receipt(self):
+        receipt = "\n===== Receipt =====\n"
+        for item in self.purchased_items:
+            receipt += f"\t{item['item_name']} -- ${item['item_price']:.2f}\n"
+        receipt += f"\tTotal --- ${sum(item['item_price'] for item in self.purchased_items):.2f}\n"
+        receipt += "===================\n"
+        return receipt
+
 if __name__ == "__main__":
     vending_machine = VendingMachine()
     vending_machine.run_vending_machine()
+
+    rec_bool = int(input("1. Print the receipt? 2. Only print the total sum: "))
+    if rec_bool == 1:
+        print(vending_machine.create_receipt())
+    elif rec_bool == 2:
+        print(f"Total Sum: ${sum(item['item_price'] for item in vending_machine.purchased_items):.2f}")
+    else:
+        print("INVALID ENTRY")
