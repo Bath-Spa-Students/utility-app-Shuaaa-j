@@ -3,7 +3,7 @@ from prettytable import PrettyTable
 
 class VendingMachine:
 
-    coupon = "RAFIA"
+    coupon = "DUCK"
     discount = 10  # Adjust the discount percentage as needed
 
     def __init__(self):
@@ -50,10 +50,13 @@ class VendingMachine:
                 money = float(input("Insert money: AED "))
                 if money >= 0:  # Allow inserting zero for the remaining balance
                     coupon_code = input("\nEnter coupon code (Input NA if no coupon code is available): ").upper()
+
                     if coupon_code == self.coupon:
                         print(f"Applied {self.discount}% discount!")
-                        money *= (1 - self.discount / 100)
-                    return money
+                        discount_amount = (self.discount / 100) * money 
+                        return money - discount_amount  # Return the discounted amount
+                    else:
+                        return money  # Return the original amount without discount
                 else:
                     print("Invalid amount. Please insert a valid amount.")
             except ValueError:
